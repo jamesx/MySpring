@@ -17,8 +17,7 @@
         <input type="text" id="message">
         <input type="button" value="连接" id="connect">
         <input type="button" value="断开" id="close">
-        <input type="button" value="发送1" id="send1">
-        <input type="button" value="发送2" id="send2">
+        <input type="button" value="发送" id="send">
     </div>
 </fieldset>
 <script></script>
@@ -30,6 +29,17 @@
         stomp=Stomp.over(sock);
         stomp.connect('guest','guest',function (frame) {
             console.log("stomp已连接!");
+            //接收服务器的消息，浏览器想接收消息，必须订阅一个目的地
+            stomp.subscribe("/topic/hello",function(result){
+                //解析JSON字符串
+                var myMessage=JSON.parse(result.body);
+                console.log("成功接受消息:"+myMessage.message);
+            });
+            //连接服务器，对应于订阅消息，@Subscribe
+            stomp.subscribe("/app/user02",function(result){
+                var myMessage=JSON.parse(result.body);
+                console.log("成功接受消息:"+myMessage.message);
+            });
         });
     })
     $("#close").click(function(){
@@ -38,15 +48,10 @@
             console.log("stomp连接已关闭!")
         }
     })
-    $("#send1").click(function(){
+    $("#send").click(function(){
         var message=$("#message").val();
-        var data=JSON.stringify({'payload':message});
+        var data=JSON.stringify({'message':message});
         stomp.send("/app/user01",{},data);
-    })
-    $("#send2").click(function(){
-        var message=$("#message").val();
-        var data=JSON.stringify({'payload':message});
-        stomp.send("/app/user02",{},data);
     })
 </script>
 </body>
