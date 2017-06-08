@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Created by xsooy-pc on 2017/6/3.
+ * Created by superMan791 on 2017/5/6.
  */
 @Controller
 @RequestMapping("stomp")
@@ -23,12 +23,14 @@ public class StompController {
         return "signal/stomp/index";
     }
 
-    //简单的文本回应类，使用该对象可以在任意地方回复消息到某个主题
+    /**
+     * 消息模板
+     */
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
     /**
-     * 接收请求
+     * 接收请求,并发送消息
      * @param message
      */
     @MessageMapping("user01")
@@ -40,7 +42,6 @@ public class StompController {
     return new StompMessage("user01收到消息了");
     }
     /**
-     * 接收请求并给予响应
      * 处理对/app/user02的订阅,在客户端第一次订阅时发送消息给客户端
      */
     @SubscribeMapping("user02")

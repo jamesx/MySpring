@@ -6,8 +6,7 @@ import com.main.core.config.tool.email.EmailSender;
 /**
  * 发送邮件辅助类
  * 
- * @author ShenHuaJie
- * @version $Id: MailUtil.java, v 0.1 2014年12月4日 下午8:22:43 ShenHuaJie Exp $
+ * @author superMan791
  */
 public final class EmailUtil {
 	private EmailUtil() {

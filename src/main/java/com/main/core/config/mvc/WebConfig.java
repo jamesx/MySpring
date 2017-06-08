@@ -13,21 +13,26 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/4/14.
+ * Created by superMan791 on 2017/5/6.
  */
 @Configuration
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
     /**
-     * Configure ResourceHandlers to serve static resources like CSS/ Javascript etc...
+     * 配置静态资源连接,并设置缓存链
      */
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //设置静态资源路径，并且启用资源链缓存
         registry.addResourceHandler("/static/**").addResourceLocations("/static/").resourceChain(true).addResolver(
                 new VersionResourceResolver().addContentVersionStrategy("/**"));
     }
+
+    /**
+     * thymeleaf相关配置
+     * @author superMan791
+     * @return
+     */
     @Bean
     public SpringResourceTemplateResolver templateResolver(){
         // SpringResourceTemplateResolver automatically integrates with Spring's own
@@ -74,10 +79,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         converters.add(resourceHttpMessageConverter());
         converters.add(sourceHttpMessageConverter());
         converters.add(formHttpMessageConverter());
-
-        /**
-         * message相关的消息转换器
-         */
     }
 
     @Bean

@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import java.nio.charset.Charset;
 
 /**
- * Created by Administrator on 2017/2/28.
+ * Created by superMan791 on 2017/5/6.
  */
 public class EncodeUtil {
     private static final Logger log= LogManager.getLogger();

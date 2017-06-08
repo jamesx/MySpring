@@ -20,7 +20,7 @@ import java.util.List;
  * <p>
  * 解析日终类
  * </p>
- * @author zhengdong 2016年10月13日 下午2:30:08
+ * @author superMan791
  * @version V1.0
  */
 @Component

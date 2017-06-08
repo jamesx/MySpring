@@ -10,7 +10,7 @@ import org.springframework.web.socket.TextMessage;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by xsooy-pc on 2017/6/3.
+ * Created by superMan791 on 2017/5/6.
  */
 @Controller
 @RequestMapping("websocket")

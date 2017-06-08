@@ -27,7 +27,7 @@ import java.net.URI;
 import java.util.*;
 
 /**
- * Created by xsooy-pc on 2017/5/26.
+ * Created by superMan791 on 2017/5/6.
  */
 public class HttpClientUtil {
     public static String doGet(String url, Map<String, String> param) {

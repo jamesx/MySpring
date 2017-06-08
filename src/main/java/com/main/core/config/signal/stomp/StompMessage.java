@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * Created by Administrator on 2017/6/8.
+ * Created by superMan791 on 2017/5/6.
  */
 @Data
 public class StompMessage implements Serializable{

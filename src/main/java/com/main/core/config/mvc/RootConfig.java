@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 /**
- * Created by Administrator on 2017/4/14.
+ * Created by superMan791 on 2017/5/6.
  */
 @Configuration
 @ComponentScan("com")

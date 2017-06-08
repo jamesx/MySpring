@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.retry.annotation.EnableRetry;
 
 /**
- * Created by xsooy-pc on 2017/5/2.
+ * Created by superMan791 on 2017/5/6.
  */
 @Configuration
 @EnableRetry

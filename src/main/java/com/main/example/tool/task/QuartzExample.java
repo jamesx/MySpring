@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Created by xsooy-pc on 2017/5/29.
+ * Created by superMan791 on 2017/5/6.
  */
 //@TriggerType(cronExpression = "0/10 * * * * ?")
 public class QuartzExample {

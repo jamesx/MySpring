@@ -8,7 +8,7 @@ import java.lang.annotation.*;
  * <p>
  * 定时器标记类注解
  * </p>
- * @author zhengdong 2016年10月13日 下午2:17:31
+ * @author superMan791
  * @version V1.0
  */
 @Target(ElementType.TYPE)

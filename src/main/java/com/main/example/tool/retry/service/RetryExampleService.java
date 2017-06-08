@@ -7,7 +7,7 @@ import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by Administrator on 2017/4/14.
+ * Created by superMan791 on 2017/5/6.
  */
 @Service
 public class RetryExampleService {

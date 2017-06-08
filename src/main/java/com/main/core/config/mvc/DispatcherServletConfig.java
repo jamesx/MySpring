@@ -14,7 +14,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
- * Created by Administrator on 2017/4/14.
+ * Created by superMan791 on 2017/5/6.
  */
 public class DispatcherServletConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
     private static Logger log=LogManager.getLogger();

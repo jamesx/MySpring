@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/4/14.
+ * Created by superMan791 on 2017/5/6.
  */
 @Configuration
 @MapperScan("com.main.*.*.*.dao")

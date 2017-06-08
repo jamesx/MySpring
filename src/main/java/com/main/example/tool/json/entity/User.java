@@ -3,7 +3,7 @@ package com.main.example.tool.json.entity;
 import lombok.Data;
 
 /**
- * Created by Administrator on 2017/5/29.
+ * Created by superMan791 on 2017/5/6.
  */
 @Data
 public class User {

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Created by xsooy-pc on 2017/5/30.
+ * Created by superMan791 on 2017/5/6.
  */
 @Service
 public class MyBatisExampleService {

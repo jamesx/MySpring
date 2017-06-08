@@ -12,7 +12,7 @@ import org.springframework.web.socket.server.support.HttpSessionHandshakeInterce
 
 /**
  * WebSocket拦截器
- * @author WANG
+ * @author superMan791
  *
  */
 public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInterceptor {

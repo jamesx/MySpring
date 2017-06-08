@@ -8,7 +8,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * Created by xsooy-pc on 2017/5/30.
+ * Created by superMan791 on 2017/5/6.
  */
 @TableName("mybatis_example")
 @Data

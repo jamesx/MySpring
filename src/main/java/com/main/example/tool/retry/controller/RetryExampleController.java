@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Created by xsooy-pc on 2017/5/6.
+ * Created by superMan791 on 2017/5/6.
  */
 @Controller
 @RequestMapping("retry")
