@@ -51,9 +51,10 @@ public class StompController {
         return message;
     }
     @MessageMapping("user03")
-    @SendTo(value="/topic/hello")
+    @SendToUser(value="/queue/hello")
     public StompMessage sendToOne(StompMessage message){
-        messagingTemplate.convertAndSendToUser("guest","/topic/hello",new StompMessage("guest,这条消息是爹发给你自己的!"));
+        String username="guest";
+        messagingTemplate.convertAndSend("/topic/"+username,new StompMessage("这条消息是爷爷发的"));
         return new StompMessage("这条是你妈发的!");
     }
 }

@@ -10,31 +10,31 @@
 <body>
 <fieldset>
     <legend>Stomp测试</legend>
-    <div>
-        <table>
-            <tr>
-                <label>用户名:</label>
+    <url>
+        <li>
+            <label>
+                <div>用户名:</div>
                 <input type="text" id="username">
-            </tr>
-            <tr>
-                <label>密码:</label>
-                <input type="text" id="password">
-            </tr>
-            <tr>
-                <label>接收消息:</label>
-                <input type="text" id="received">
-            </tr>
-            <tr>
-                <label>发送消息:</label>
-                <input type="text" id="message">
-            </tr>
-            <tr>
-                <input type="button" value="连接" id="connect">
-                <input type="button" value="断开" id="close">
-                <input type="button" value="发送" id="send">
-            </tr>
-        </table>
-    </div>
+            </label>
+        </li>
+        <li>
+            <div>密码:</div>
+            <input type="text" id="password">
+        </li>
+        <li>
+            <div>接收消息:</div>
+            <input type="text" id="received">
+        </li>
+        <li>
+            <div>发送消息:</div>
+            <input type="text" id="message">
+        </li>
+        <li>
+            <input type="button" value="连接" id="connect">
+            <input type="button" value="断开" id="close">
+            <input type="button" value="发送" id="send">
+        </li>
+    </url>
 </fieldset>
 <script></script>
 <script>
@@ -55,6 +55,16 @@
             });
             //连接服务器，对应于订阅消息，@Subscribe
             stomp.subscribe("/app/user02",function(result){
+                var myMessage=JSON.parse(result.body);
+                console.log("成功接受消息:"+myMessage.message);
+            });
+            stomp.subscribe("/user/queue/hello",function(result){
+                //解析JSON字符串
+                var myMessage=JSON.parse(result.body);
+                console.log("成功接受消息:"+myMessage.message);
+            });
+            stomp.subscribe("/topic/"+username,function(result){
+                //解析JSON字符串
                 var myMessage=JSON.parse(result.body);
                 console.log("成功接受消息:"+myMessage.message);
             });
