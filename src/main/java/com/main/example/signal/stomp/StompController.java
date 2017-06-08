@@ -41,7 +41,7 @@ public class StompController {
     }
     /**
      * 接收请求并给予响应
-     * 处理对/app/user02的订阅
+     * 处理对/app/user02的订阅,在客户端第一次订阅时发送消息给客户端
      */
     @SubscribeMapping("user02")
     public StompMessage subServer(){
