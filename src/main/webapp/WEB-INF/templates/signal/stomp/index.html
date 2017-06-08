@@ -11,13 +11,29 @@
 <fieldset>
     <legend>Stomp测试</legend>
     <div>
-        <label>接收消息:</label>
-        <input type="text" id="received">
-        <label>发送消息:</label>
-        <input type="text" id="message">
-        <input type="button" value="连接" id="connect">
-        <input type="button" value="断开" id="close">
-        <input type="button" value="发送" id="send">
+        <table>
+            <tr>
+                <label>用户名:</label>
+                <input type="text" id="username">
+            </tr>
+            <tr>
+                <label>密码:</label>
+                <input type="text" id="password">
+            </tr>
+            <tr>
+                <label>接收消息:</label>
+                <input type="text" id="received">
+            </tr>
+            <tr>
+                <label>发送消息:</label>
+                <input type="text" id="message">
+            </tr>
+            <tr>
+                <input type="button" value="连接" id="connect">
+                <input type="button" value="断开" id="close">
+                <input type="button" value="发送" id="send">
+            </tr>
+        </table>
     </div>
 </fieldset>
 <script></script>
@@ -25,9 +41,11 @@
     var url="ws://"+window.location.host+'/stompServer';
     var stomp=null;
     $("#connect").click(function () {
+        var username=$("#username").val();
+        var password=$("#password").val();
         var sock = new WebSocket(url);
         stomp=Stomp.over(sock);
-        stomp.connect('guest','guest',function (frame) {
+        stomp.connect(username,password,function (frame) {
             console.log("stomp已连接!");
             //接收服务器的消息，浏览器想接收消息，必须订阅一个目的地
             stomp.subscribe("/topic/hello",function(result){
@@ -51,7 +69,7 @@
     $("#send").click(function(){
         var message=$("#message").val();
         var data=JSON.stringify({'message':message});
-        stomp.send("/app/user01",{},data);
+        stomp.send("/app/user03",{},data);
     })
 </script>
 </body>

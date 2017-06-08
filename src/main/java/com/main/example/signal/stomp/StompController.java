@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,5 +49,11 @@ public class StompController {
     public StompMessage subServer(){
         StompMessage message=new StompMessage("这是Subscribe消息!");
         return message;
+    }
+    @MessageMapping("user03")
+    @SendTo(value="/topic/hello")
+    public StompMessage sendToOne(StompMessage message){
+        messagingTemplate.convertAndSendToUser("guest","/topic/hello",new StompMessage("guest,这条消息是爹发给你自己的!"));
+        return new StompMessage("这条是你妈发的!");
     }
 }
