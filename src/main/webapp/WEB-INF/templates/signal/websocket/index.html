@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Good Thymes Virtual Grocery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../static/js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<fieldset>
+    <legend>Web Socket测试</legend>
+    <div>
+        <label>发送内容</label>
+        <input type="text" id="reply">
+        <label>接收内容</label>
+        <input type="text" id="received">
+        <input id="connect" type="button" value="连接">
+        <input id="close" type="button" value="关闭">
+        <input id="send" type="button" value="发送">
+    </div>
+</fieldset>
+
+<script>
+    var url="ws://"+window.location.host+'/webServer';
+    var socket=null;
+    $("#connect").click(function () {
+         socket = new WebSocket(url);
+        alert("connect start!");
+        socket.onopen = function(event) {
+            console.log("WebSocket:已连接");
+            console.log(event);
+        };
+        socket.onmessage = function(event) {
+            var data=JSON.parse(event.data);
+            $("#received").val(data);
+            console.log("WebSocket:收到一条消息",data);
+        };
+        socket.onerror = function(event) {
+            console.log("WebSocket:发生错误 ");
+            console.log(event);
+        };
+        socket.onclose = function(event)
+        {
+            console.log("WebSocket:已关闭");
+            console.log(event);
+        };
+    });
+
+
+    $("#close").click(function () {
+        if (socket != null) {
+            socket.close();
+            socket = null;
+        }
+    })
+    $("#send").click(function () {
+        var message=$("#reply").val();
+        socket.send(message);
+    })
+</script>
+</body>
+</html>

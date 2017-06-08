@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Good Thymes Virtual Grocery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<script></script>
+<script>
+    var url="ws://"+window.location.host+'/webServer';
+    var sock = new WebSocket(url);
+    var stomp=Stomp.over(sock);
+    var payload=JSON.stringify({'message':'Marco!'});
+    index.connect('guest','guest',function (frame) {
+        index.send("/app/hello",{},payload);
+        index.send("/app/message",{},payload);
+        index.subscribe("/user/${}/message",handleOk);
+        index.subscribe("/queue/"+name,handleOk);
+        index.subscribe('/user/tom/queue/send',handleOk3);
+
+    });
+    function  handleOk(incoming) {
+        var myMessage=JSON.parse(incoming.body);
+        console.log("成功接受消息:"+myMessage.message);
+    }
+    function  handleOk2(incoming) {
+        var myMessage=JSON.parse(incoming.body);
+        console.log("成功接受消息:"+myMessage);
+    }
+    function  handleOk3(incoming) {
+        var myMessage=JSON.parse(incoming.body);
+        alert("成功接受消息:"+myMessage.message);
+    }
+</script>
+</body>
+</html>

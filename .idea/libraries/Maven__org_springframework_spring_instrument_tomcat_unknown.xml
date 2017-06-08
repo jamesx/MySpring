@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.springframework:spring-instrument-tomcat:unknown">
+    <CLASSES>
+      <root url="jar://D:/.m2/repository/org/springframework/spring-instrument-tomcat/unknown/spring-instrument-tomcat-unknown.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/.m2/repository/org/springframework/spring-instrument-tomcat/unknown/spring-instrument-tomcat-unknown-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/.m2/repository/org/springframework/spring-instrument-tomcat/unknown/spring-instrument-tomcat-unknown-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

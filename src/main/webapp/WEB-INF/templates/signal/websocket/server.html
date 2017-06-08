@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Good Thymes Virtual Grocery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../static/js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<label>信息内容：</label>
+<input type="text" id="reply">
+<label>用户名：</label>
+<input type="text" id="username">
+<input type="button" id="send" value="发送">
+<script>
+    $("#send").click(function () {
+        var message=$("#reply").val();
+        var username =$("#username").val();
+        $.post("sendToUser",{
+            message:message,
+            username:username
+        },function(result){
+        });
+    })
+</script>
+</body>
+</html>
