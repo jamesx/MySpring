@@ -27,6 +27,6 @@ public class StompConfig extends AbstractWebSocketMessageBrokerConfigurer {
     }
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/webServer");
+        registry.addEndpoint("/stompServer");
     }
 }

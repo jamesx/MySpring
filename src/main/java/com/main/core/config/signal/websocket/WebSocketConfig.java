@@ -1,11 +1,14 @@
 package com.main.core.config.signal.websocket;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/6/3.
@@ -30,5 +33,4 @@ public class WebSocketConfig extends WebMvcConfigurerAdapter implements WebSocke
         container.setMaxBinaryMessageBufferSize(8192);
         return container;
     }
-
 }

@@ -8,10 +8,10 @@ import org.apache.logging.log4j.Logger;
 /**
  * Created by xsooy-pc on 2017/5/29.
  */
-@TriggerType(cronExpression = "0/10 * * * * ?")
+//@TriggerType(cronExpression = "0/10 * * * * ?")
 public class QuartzExample {
     private static Logger log = LogManager.getLogger();
-    @TriggerMethod
+    //@TriggerMethod
     public void doSomething(){
         log.info("定时任务执行中---------------------------------------------------------");
     }

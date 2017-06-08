@@ -65,6 +65,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.clear();
+        /**
+         * http相关的消息转换器
+         */
         converters.add(stringHttpMessageConverter());
         converters.add(mappingJackson2HttpMessageConverter());
         converters.add(byteArrayHttpMessageConverter());
@@ -72,7 +75,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         converters.add(sourceHttpMessageConverter());
         converters.add(formHttpMessageConverter());
 
-
+        /**
+         * message相关的消息转换器
+         */
     }
 
     @Bean

@@ -4,34 +4,50 @@
 <head>
     <title>Good Thymes Virtual Grocery</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="../../../../static/js/jquery-3.2.1.min.js"></script>
+    <script src="../../../../static/js/stomp/stomp.js"></script>
 </head>
 <body>
+<fieldset>
+    <legend>Stomp测试</legend>
+    <div>
+        <label>接收消息:</label>
+        <input type="text" id="received">
+        <label>发送消息:</label>
+        <input type="text" id="message">
+        <input type="button" value="连接" id="connect">
+        <input type="button" value="断开" id="close">
+        <input type="button" value="发送1" id="send1">
+        <input type="button" value="发送2" id="send2">
+    </div>
+</fieldset>
 <script></script>
 <script>
-    var url="ws://"+window.location.host+'/webServer';
-    var sock = new WebSocket(url);
-    var stomp=Stomp.over(sock);
-    var payload=JSON.stringify({'message':'Marco!'});
-    index.connect('guest','guest',function (frame) {
-        index.send("/app/hello",{},payload);
-        index.send("/app/message",{},payload);
-        index.subscribe("/user/${}/message",handleOk);
-        index.subscribe("/queue/"+name,handleOk);
-        index.subscribe('/user/tom/queue/send',handleOk3);
-
-    });
-    function  handleOk(incoming) {
-        var myMessage=JSON.parse(incoming.body);
-        console.log("成功接受消息:"+myMessage.message);
-    }
-    function  handleOk2(incoming) {
-        var myMessage=JSON.parse(incoming.body);
-        console.log("成功接受消息:"+myMessage);
-    }
-    function  handleOk3(incoming) {
-        var myMessage=JSON.parse(incoming.body);
-        alert("成功接受消息:"+myMessage.message);
-    }
+    var url="ws://"+window.location.host+'/stompServer';
+    var stomp=null;
+    $("#connect").click(function () {
+        var sock = new WebSocket(url);
+        stomp=Stomp.over(sock);
+        stomp.connect('guest','guest',function (frame) {
+            console.log("stomp已连接!");
+        });
+    })
+    $("#close").click(function(){
+        if(stomp!=null){
+            stomp.disconnect();
+            console.log("stomp连接已关闭!")
+        }
+    })
+    $("#send1").click(function(){
+        var message=$("#message").val();
+        var data=JSON.stringify({'payload':message});
+        stomp.send("/app/user01",{},data);
+    })
+    $("#send2").click(function(){
+        var message=$("#message").val();
+        var data=JSON.stringify({'payload':message});
+        stomp.send("/app/user02",{},data);
+    })
 </script>
 </body>
 </html>
