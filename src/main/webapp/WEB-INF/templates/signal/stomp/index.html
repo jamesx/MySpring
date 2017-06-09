@@ -63,7 +63,7 @@
                 var myMessage=JSON.parse(result.body);
                 console.log("成功接受消息:"+myMessage.message);
             });
-            stomp.subscribe("/topic/"+username,function(result){
+            stomp.subscribe("/queue/"+username,function(result){
                 //解析JSON字符串
                 var myMessage=JSON.parse(result.body);
                 console.log("成功接受消息:"+myMessage.message);

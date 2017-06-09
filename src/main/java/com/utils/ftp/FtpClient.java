@@ -29,7 +29,7 @@ public class FtpClient {
 		int port = 21;
 		String username = "ftpUser";
 		String password = "123456";
-		String localUpPath = "C:/bankData/Send/";
+		String localUpPath = "D:/Pictures";
 		String localDnPath = "C:/bankData/Feedback";
 		String remotePath = "Feedback";
 		FtpClient ftpClient = new FtpClient(host, port, username, password);
