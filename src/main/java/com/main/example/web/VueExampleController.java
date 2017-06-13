@@ -15,3 +15,4 @@ public class VueExampleController {
         return "/web/index";
     }
 }
+

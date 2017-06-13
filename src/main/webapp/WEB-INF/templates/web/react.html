@@ -5,18 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-    <div id="container">
-    </div>
-    <div id="div1">
-
-    </div>
-    <script src="../../../static/js/react.js"></script>
-    <script src="../../../static/js/react-dom.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+<div id="container">
+</div>
+<div id="example1"></div>
+<script src="../../../static/js/core/react.js"></script>
+<script src="../../../static/js/core/react-dom.js"></script>
+<script src="../../../static/js/core/browser.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>-->
 <script type="text/babel">
     class ExampleApplication extends React.Component {
         render() {
-            var elapsed = Math.round(this.props.elapsed  / 100);
+            var elapsed = Math.round(this.props.elapsed / 100);
             var seconds = elapsed / 10 + (elapsed % 10 ? '' : '.0' );
             var message =
                 `React has been successfully running for ${seconds} seconds.`;
@@ -27,31 +26,41 @@
     var start = new Date().getTime();
     setInterval(() => {
         ReactDOM.render(
-                <ExampleApplication elapsed={new Date().getTime() - start} />,
+                <ExampleApplication elapsed={new Date().getTime() - start}/>,
             document.getElementById('container')
         );
     }, 50);
 </script>
 <script type="text/babel">
-    class Button extends React.Component{
-        constructor(props){
+    class Button extends React.Component {
+        constructor(props) {
             super(props);
+            this.state = {
+                count: 0
+            }
+            this.handleClick = this.handleClick.bind(this);
         }
-        render(){
-            const{color,text}=this.props;
-            return <button className="{'btn btn-${color}'}">
-                    <em>{text}</em>
-                 </button>
+
+        handleClick(e) {
+            e.preventDefault();
+            this.setState({
+                count: this.state.count + 1
+            })
+        }
+
+        render() {
+            const {color, text} = this.props;
+            return <div>
+                <p>{this.state.count}</p>
+                <button onClick={this.handleClick} className={color}>{text}</button>
+            </div>
         }
     }
-    Button.defaultProps={
-        color:'blue',
-        text:'Confirm',
+    Button.defaultProps = {
+        color: 'red',
+        text: 'ComeOn!'
     }
-    ReactDOM.render(
-        <Button/>,
-        document.getElementById('div1')
-    )
+    ReactDOM.render(<Button/>, document.getElementById("example1"));
 </script>
 </body>
 </html>
