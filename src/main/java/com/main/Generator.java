@@ -15,7 +15,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 /**
  * 代码生成
- * @author ShenHuaJie
+ * @author ShenHuaJi
  */
 public class Generator {
 	/**
