@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class VueExampleController {
     @RequestMapping("index")
     public String index(){
-        return "/web/index";
+        return "/web/vue/index";
     }
 }
 

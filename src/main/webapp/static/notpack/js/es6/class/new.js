@@ -1,3 +1,6 @@
+/**
+ * 基本练习
+ */
 class User{
     constructor(name,age){
         this.name=name;
