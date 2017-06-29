@@ -10,19 +10,22 @@ class ItemEditor extends  React.Component{
         }
         this.remove=this.remove.bind(this);
         this.changeHandle=this.changeHandle.bind(this);
+        this.save=this.save.bind(this);
     };
     changeHandle(event) {
         this.setState({
             value:event.target.value
         })
-    }
-    ;
+    };
+    save(){
+        this.props.onSave(this.props.id,this.state.value);
+    };
     remove(){
         this.props.onRemove(this.props.id);
     };
     render(){
         return <li className="list-group-item"><input type="text" onChange={this.changeHandle} className="item-edit" value={this.state.value}/>
-                     <a href="#" className="glyphicon glyphicon-ok"></a><a href="#"  onClick={this.remove} className="glyphicon glyphicon-remove"></a>
+                     <a href="#" className="glyphicon glyphicon-ok" onClick={this.save}></a><a href="#"  onClick={this.remove} className="glyphicon glyphicon-remove"></a>
                 </li>
     }
 };

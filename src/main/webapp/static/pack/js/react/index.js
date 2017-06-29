@@ -22333,6 +22333,7 @@ var List = function (_React$Component) {
         _this.add = _this.add.bind(_this);
         _this.removeEditItem = _this.removeEditItem.bind(_this);
         _this.removeItem = _this.removeItem.bind(_this);
+        _this.save = _this.save.bind(_this);
         return _this;
     }
 
@@ -22341,10 +22342,22 @@ var List = function (_React$Component) {
         value: function add(e) {
             e.preventDefault();
             var editList = this.state.editListDOM;
-            editList.set(this.state.count + 1, { value: '' });
+            editList.set(this.state.count + 1, '');
             this.setState({
                 count: this.state.count + 1,
                 editListDOM: editList
+            });
+        }
+    }, {
+        key: 'save',
+        value: function save(id, value) {
+            var editList = this.state.editListDOM;
+            var itemList = this.state.listDOM;
+            editList.delete(id);
+            itemList.set(id, value);
+            this.setState({
+                editListDOM: editList,
+                listDOM: itemList
             });
         }
     }, {
@@ -22382,7 +22395,7 @@ var List = function (_React$Component) {
                         _item3.default,
                         { id: item[0], onRemove: this.removeItem, value: 'this is' },
                         ' ',
-                        item[1].value
+                        item[1]
                     ));
                 }
             } catch (err) {
@@ -22408,7 +22421,7 @@ var List = function (_React$Component) {
                 for (var _iterator2 = this.state.editListDOM[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
                     var _item = _step2.value;
 
-                    editListDOM.push(_react2.default.createElement(_itemEditor2.default, { key: _item[0], onRemove: this.removeEditItem, id: _item[0], value: _item[1].value }));
+                    editListDOM.push(_react2.default.createElement(_itemEditor2.default, { key: _item[0], onSave: this.save, onRemove: this.removeEditItem, id: _item[0], value: _item[1] }));
                 }
             } catch (err) {
                 _didIteratorError2 = true;
@@ -22489,6 +22502,7 @@ var ItemEditor = function (_React$Component) {
         };
         _this.remove = _this.remove.bind(_this);
         _this.changeHandle = _this.changeHandle.bind(_this);
+        _this.save = _this.save.bind(_this);
         return _this;
     }
 
@@ -22498,6 +22512,11 @@ var ItemEditor = function (_React$Component) {
             this.setState({
                 value: event.target.value
             });
+        }
+    }, {
+        key: "save",
+        value: function save() {
+            this.props.onSave(this.props.id, this.state.value);
         }
     }, {
         key: "remove",
@@ -22511,7 +22530,7 @@ var ItemEditor = function (_React$Component) {
                 "li",
                 { className: "list-group-item" },
                 _react2.default.createElement("input", { type: "text", onChange: this.changeHandle, className: "item-edit", value: this.state.value }),
-                _react2.default.createElement("a", { href: "#", className: "glyphicon glyphicon-ok" }),
+                _react2.default.createElement("a", { href: "#", className: "glyphicon glyphicon-ok", onClick: this.save }),
                 _react2.default.createElement("a", { href: "#", onClick: this.remove, className: "glyphicon glyphicon-remove" })
             );
         }
