@@ -22305,9 +22305,9 @@ var _itemEditor = __webpack_require__(185);
 
 var _itemEditor2 = _interopRequireDefault(_itemEditor);
 
-var _item = __webpack_require__(186);
+var _item2 = __webpack_require__(186);
 
-var _item2 = _interopRequireDefault(_item);
+var _item3 = _interopRequireDefault(_item2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22325,26 +22325,119 @@ var List = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props));
 
-        _this.state = {};
+        _this.state = {
+            count: 0,
+            listDOM: new Map(),
+            editListDOM: new Map()
+        };
+        _this.add = _this.add.bind(_this);
+        _this.removeEditItem = _this.removeEditItem.bind(_this);
+        _this.removeItem = _this.removeItem.bind(_this);
         return _this;
     }
 
     _createClass(List, [{
+        key: 'add',
+        value: function add(e) {
+            e.preventDefault();
+            var editList = this.state.editListDOM;
+            editList.set(this.state.count + 1, { value: '' });
+            this.setState({
+                count: this.state.count + 1,
+                editListDOM: editList
+            });
+        }
+    }, {
+        key: 'removeItem',
+        value: function removeItem(id) {
+            var itemList = this.state.listDOM;
+            itemList.delete(id);
+            this.setState({
+                listDOM: itemList
+            });
+        }
+    }, {
+        key: 'removeEditItem',
+        value: function removeEditItem(id) {
+            var editList = this.state.editListDOM;
+            editList.delete(id);
+            this.setState({
+                editListDOM: editList
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var listDOM = [];
+            var editListDOM = [];
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = this.state.listDOM[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var item = _step.value;
+
+                    listDOM.push(_react2.default.createElement(
+                        _item3.default,
+                        { id: item[0], onRemove: this.removeItem, value: 'this is' },
+                        ' ',
+                        item[1].value
+                    ));
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            var _iteratorNormalCompletion2 = true;
+            var _didIteratorError2 = false;
+            var _iteratorError2 = undefined;
+
+            try {
+                for (var _iterator2 = this.state.editListDOM[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                    var _item = _step2.value;
+
+                    editListDOM.push(_react2.default.createElement(_itemEditor2.default, { key: _item[0], onRemove: this.removeEditItem, id: _item[0], value: _item[1].value }));
+                }
+            } catch (err) {
+                _didIteratorError2 = true;
+                _iteratorError2 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                        _iterator2.return();
+                    }
+                } finally {
+                    if (_didIteratorError2) {
+                        throw _iteratorError2;
+                    }
+                }
+            }
+
             return _react2.default.createElement(
                 'div',
                 null,
                 _react2.default.createElement(
                     'button',
-                    { className: 'btn btn-default' },
+                    { className: 'btn btn-default', onClick: this.add },
                     'Add'
                 ),
                 _react2.default.createElement(
                     'ul',
                     { className: 'list-group' },
-                    _react2.default.createElement(_item2.default, null),
-                    _react2.default.createElement(_itemEditor2.default, null)
+                    listDOM,
+                    editListDOM
                 )
             );
         }
@@ -22389,18 +22482,37 @@ var ItemEditor = function (_React$Component) {
     function ItemEditor(props) {
         _classCallCheck(this, ItemEditor);
 
-        return _possibleConstructorReturn(this, (ItemEditor.__proto__ || Object.getPrototypeOf(ItemEditor)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (ItemEditor.__proto__ || Object.getPrototypeOf(ItemEditor)).call(this, props));
+
+        _this.state = {
+            value: ""
+        };
+        _this.remove = _this.remove.bind(_this);
+        _this.changeHandle = _this.changeHandle.bind(_this);
+        return _this;
     }
 
     _createClass(ItemEditor, [{
+        key: "changeHandle",
+        value: function changeHandle(event) {
+            this.setState({
+                value: event.target.value
+            });
+        }
+    }, {
+        key: "remove",
+        value: function remove() {
+            this.props.onRemove(this.props.id);
+        }
+    }, {
         key: "render",
         value: function render() {
             return _react2.default.createElement(
                 "li",
                 { className: "list-group-item" },
-                _react2.default.createElement("input", { type: "text", className: "item-edit" }),
+                _react2.default.createElement("input", { type: "text", onChange: this.changeHandle, className: "item-edit", value: this.state.value }),
                 _react2.default.createElement("a", { href: "#", className: "glyphicon glyphicon-ok" }),
-                _react2.default.createElement("a", { href: "#", className: "glyphicon glyphicon-remove" })
+                _react2.default.createElement("a", { href: "#", onClick: this.remove, className: "glyphicon glyphicon-remove" })
             );
         }
     }]);
@@ -22454,7 +22566,8 @@ var Item = function (_React$Component) {
             return _react2.default.createElement(
                 "li",
                 { className: "list-group-item" },
-                "Cras justo odio ",
+                this.props.value + this.props.children,
+                " ",
                 _react2.default.createElement("a", { className: "right glyphicon glyphicon-remove", href: "#" }),
                 _react2.default.createElement("a", { className: "right glyphicon glyphicon-pencil", href: "#" })
             );

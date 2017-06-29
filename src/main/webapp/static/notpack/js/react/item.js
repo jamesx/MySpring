@@ -7,7 +7,7 @@ class Item extends React.Component{
         super(props);
     };
     render(){
-        return  <li className="list-group-item">Cras justo odio <a className="right glyphicon glyphicon-remove" href="#"></a><a className="right glyphicon glyphicon-pencil" href="#"></a></li>
+        return  <li className="list-group-item">{this.props.value + this.props.children} <a className="right glyphicon glyphicon-remove" href="#"></a><a className="right glyphicon glyphicon-pencil" href="#"></a></li>
     }
 };
 export default Item;
