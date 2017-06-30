@@ -11,7 +11,22 @@
 <div id="container">
 </div>
 <div id="example1"></div>
-<script type="text/babel" src="../../../../static/notpack/js/react/exampleApplication.js"></script>
-<script type="text/babel" src="../../../../static/notpack/js/react/button.js"></script>
+<script type="text/babel" >
+    class Test extends  React.Component{
+        constructor(props){
+            super(props);
+            this.state={
+                age:18
+            }
+        };
+        render(){
+            return <div>my name is {this.props.name}</div>
+        }
+    };
+    Test.defaultProps={
+        name:"Tom"
+    }
+    ReactDOM.render(<Test/>,document.getElementById("container"));
+</script>
 </body>
 </html>
