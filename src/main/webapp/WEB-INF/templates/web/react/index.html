@@ -3,30 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="../../../../static/pack/js/core/react.js"></script>
-    <script src="../../../../static/pack/js/core/react-dom.js"></script>
-    <script src="../../../../static/pack/js/core/browser.min.js"></script>
+    <link rel="stylesheet" href="../../../../static/build/css/main.css">
 </head>
 <body>
-<div id="container">
-</div>
-<div id="example1"></div>
-<script type="text/babel" >
-    class Test extends  React.Component{
-        constructor(props){
-            super(props);
-            this.state={
-                age:18
-            }
-        };
-        render(){
-            return <div>my name is {this.props.name}</div>
-        }
-    };
-    Test.defaultProps={
-        name:"Tom"
-    }
-    ReactDOM.render(<Test/>,document.getElementById("container"));
-</script>
+<button class="button">提交</button>
 </body>
 </html>

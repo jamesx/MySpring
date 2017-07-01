@@ -2,10 +2,10 @@ var webpack=require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports={
 	entry:{
-			app:__dirname+"/static/notpack/js/es6/model/model.js",
+			app:__dirname+"/static/src/js/es6/model/model.js",
 	},
 	output:{
-		path:__dirname+"/static/pack/",
+		path:__dirname+"/static/build/",
 		filename:"js/es6/model/model.js",
 		publicPath:'http://192.168.1.251:8080/static/pack/'
 	},	
