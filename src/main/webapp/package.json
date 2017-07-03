@@ -18,17 +18,19 @@
     "del": "^3.0.0",
     "file-loader": "^0.11.2",
     "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
     "gulp-clean-css": "^3.5.0",
     "gulp-concat": "^2.6.1",
     "gulp-imagemin": "^3.3.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "^3.0.0",
     "gulp-webpack": "^1.5.0",
     "html-webpack-plugin": "^2.29.0",
     "style-loader": "^0.18.2",
+    "through2": "^2.0.3",
     "uglify-js": "^3.0.20",
+    "vinyl-named": "^1.1.0",
     "webpack": "^3.0.0"
   }
 }
