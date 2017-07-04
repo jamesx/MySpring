@@ -41,7 +41,7 @@ module.exports={
 		}),
 		 new HtmlWebpackPlugin({
 			title: 'My App',
-			filename: '../../WEB-INF/templates/web/es6/index.html'
+			filename: '../../WEB-INF/templates/web/es6/button.html'
 		})
 	]
 }

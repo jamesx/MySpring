@@ -1,8 +1,8 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var concat=require('gulp-concat');
-var cleanCss=require('gulp-clean-css');
-var del=require('del');
+const gulp = require('gulp');
+const sass = require('gulp-sass');
+const concat=require('gulp-concat');
+const cleanCss=require('gulp-clean-css');
+const del=require('del');
 const babel = require('gulp-babel');
 const uglify=require('gulp-uglify');
 const rename=require('gulp-rename');
@@ -10,6 +10,7 @@ const imagemin=require('gulp-imagemin');
 const webpack = require('gulp-webpack');
 const build='./static/build/'
 const src='./static/src/';
+const named=require('vinyl-named');
 gulp.task('sass',function(){
     console.log('sass');
     gulp.src(src+'sass/**/*.sass')
@@ -30,6 +31,7 @@ gulp.task('del',function(){
 })
 gulp.task('js',function(){
     gulp.src(src+'js/react/main/**/*.js')
+        .pipe(named())
         .pipe(webpack({
             output: {
                 filename: '[name].min.js',
@@ -48,9 +50,9 @@ gulp.task('js',function(){
                 ],
             },
         }))
-         .pipe(concat('index.js'))
+        // .pipe(concat('index.js'))
        .pipe(uglify())
-        .pipe(rename('index.min.js'))
+       // .pipe(rename('index.min.js'))
         .pipe(gulp.dest(build+'js/react/main'));
 });
 gulp.task('img',function(){
