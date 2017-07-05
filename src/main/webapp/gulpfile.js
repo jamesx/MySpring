@@ -50,7 +50,7 @@ gulp.task('js',function(){
                 ],
             },
         }))
-        // .pipe(concat('index.js'))
+        // .pipe(concat('list.js'))
        .pipe(uglify())
        // .pipe(rename('index.min.js'))
         .pipe(gulp.dest(build+'js/react/main'));
