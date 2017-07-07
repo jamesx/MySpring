@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <script src="../static/js/jquery-3.2.0.min.js"></script>
+</head>
+<body>
+<form action="/login" id="loginForm">
+    <fieldset>
+        <legend>Login</legend>
+        <url>
+            <li>
+                <label>
+                  <div>UserName</div>
+                    <input id="userName" name="userName" type="text" required autofocus>
+                </label>
+            </li>
+            <li>
+                <div>Password</div>
+                <input id="password" name="password" type="password"  autocomplete="false">
+            </li>
+        </url>
+    </fieldset>
+    <input type="submit" value="登录">
+    <input type="submint" formaction="register.html">
+</form>
+<script>
+    var loginForm=document.getElementById("loginForm");
+    var user=document.getElementById("userName");
+    var doCustomValidity=function(field,msg){
+        field.setCustomValidity(msg);
+    }
+    var validateForm=function(){
+     doCustomValidity(user,"");
+     doCustomValidity(loginForm.password,"");
+     if(user.value==null){
+         doCustomValidity(user,"请输入用户名");
+     }else if(user.value.length<4){
+         doCustomValidity(user,"用户名格式不正确");
+     }
+     if(loginForm.password.value==null||loginForm.password.value.length==0){
+         doCustomValidity(loginForm.password,"请输入密码");
+     }
+    }
+    loginForm.addEventListener("input",validateForm,false);
+   loginForm.addEventListener("keyup",validateForm,false);
+</script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <fieldset>
+            <legend>Input Type</legend>
+            <ul>
+                <li>
+                    <label>
+                        <div>Color</div>
+                        <input type="color">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <div>Month</div>
+                        <input type="month">
+                    </label>
+                </li>
+                <li>
+                    <div>Date</div>
+                    <input type="date">
+                </li>
+            </ul>
+            <li>
+                <label>
+                    <div>Datetime</div>
+                    <input type="datetime">
+                </label>
+            </li>
+            <li>
+                <label>
+                    <div>Datetime-local</div>
+                    <input type="datetime-local">
+                </label>
+            </li>
+            <li>
+                <label>
+                    <div>Email</div>
+                    <input type="email">
+                </label>
+            </li>
+            <li>
+                <label>
+                    <div>Number</div>
+                    <input type="number">
+                </label>
+            </li>
+            <li>
+                <label>
+                    <div>Range</div>
+                    <input type="range">
+                </label>
+            </li>
+            <li>
+                <label>
+                    <div>Search</div>
+                    <input type="search">
+                </label>
+            </li>
+            <li>
+                <label>
+                    <div>Tel</div>
+                    <input type="tel">
+                </label>
+            </li>
+            <li>
+                <label>
+                    <div>Time</div>
+                    <input type="time">
+                </label>
+            </li>
+            <li>
+                <label>
+                    <div>Url</div>
+                    <input type="url">
+                </label>
+            </li>
+            <li>
+                <label>
+                    <div>Week</div>
+                    <input type="week">
+                </label>
+            </li>
+            <li>
+                <label>
+                    <div>Details&&summary</div>
+                    <details>
+                        <summary>提示</summary>
+                        以下内容，只有运气好的人，才能看得到
+                    </details>
+                </label>
+            </li>
+        </fieldset>
+<fieldset>
+    <legend> Properties</legend>
+    <ul>
+        <li>
+            <label>
+                <div>autocomplete</div>
+                <!--是否启用自动完成功能-->
+                <input autocomplete="off">
+            </label>
+        </li>
+        <li>
+            <label>
+                <div>autofocus</div>
+                <input autofocus>
+            </label>
+        </li>
+        <li>
+            <label>
+                <div>list</div>
+                <datalist id="city">
+                    <option>北京</option>
+                    <option>上海</option>
+                    <option>武汉</option>
+                </datalist>
+                <input list="city">
+            </label>
+        </li>
+        <li>
+            <div>max&&min&&step</div>
+            <input type="number" max="99" min="0" step="2">
+        </li>
+        <li>
+            <div>placeholder</div>
+            <input placeholder="请输入6位数字">
+        </li>
+        <li>
+            <div>required</div>
+            <input required>
+        </li>
+        <li>
+            <div>pattern</div>
+            <input pattern="[0-9]{3}">
+        </li>
+    </ul>
+</fieldset>
+</body>
+</html>
