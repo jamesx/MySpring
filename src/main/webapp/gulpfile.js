@@ -8,8 +8,8 @@ const uglify=require('gulp-uglify');
 const rename=require('gulp-rename');
 const imagemin=require('gulp-imagemin');
 const webpack = require('gulp-webpack');
-const build='./static/build/'
-const src='./static/src/';
+const build='static/build/'
+const src='static/src/';
 const named=require('vinyl-named');
 gulp.task('sass',function(){
     console.log('sass');
@@ -44,7 +44,7 @@ gulp.task('js',function(){
                         exclude:/node-modules/,
                         loader:'babel-loader',
                         query:{
-                            presets:['es2015','react']
+                            presets:['es2015','react','stage-0']
                         }
                     },
                 ],
