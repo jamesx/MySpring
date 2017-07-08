@@ -1,6 +1,9 @@
 /**
  * Created by Administrator on 2017/7/6.
  */
+import '../../../../sass/list/bg.sass';
+import React from 'react';
+import ReactDOM from 'react-dom';
 class MyForm extends  React.Component{
     constructor(props){
         super(props);
@@ -16,7 +19,7 @@ class MyForm extends  React.Component{
     }
     render(){
         return <div>
-            <input type="text"  value={this.state.id} onChange={(e)=>this.handleChange("id",e)}/>
+            <input type="text"   value={this.state.id} onChange={(e)=>this.handleChange("id",e)}/>
             <input type="text"  value={this.state.name} onChange={(e)=>this.handleChange('name',e)}/>
         </div>
     }

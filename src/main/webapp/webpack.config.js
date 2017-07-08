@@ -1,13 +1,12 @@
 var webpack=require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports={
 	entry:{
-			app:__dirname+"/static/src/js/es6/model/model.js",
+			app:__dirname+"/static/src/js/react/main/form/myForm.js",
+        	react:['react','react-dom']
 	},
 	output:{
 		path:__dirname+"/static/build/",
-		filename:"js/es6/model/model.js",
-		publicPath:'http://192.168.1.251:8080/static/pack/'
+		filename:"js/react/main/form/myForm.js",
 	},	
 	module:{
 		loaders:[
@@ -16,15 +15,16 @@ module.exports={
 			loader:'style-loader!css-loader'
 		},
 		{
-			test:/\.json$/,
-			loader:'json-loader'
+			test: /\.scss|.sass$/,
+			loader: "style-loader!css-loader!sass-loader" // creates style nodes from JS strings
+
 		},
 		{
-			test:/\.js$/,
+			test:/\.js|.jsx$/,
 			exclude:/node-modules/,
 			loader:'babel-loader',
 			query:{
-				presets:['es2015','react','stage-0']
+				presets:['es2015','react']
 			}
 		},
 		{
@@ -32,16 +32,5 @@ module.exports={
 			loader:'file-loader?limit=5000&name=img/[hash:8].[name].[ext]',
 		}
 		]
-	},
-	plugins:[
-		new webpack.optimize.UglifyJsPlugin({
-		compress: {
-			warnings: false
-			}
-		}),
-		 new HtmlWebpackPlugin({
-			title: 'My App',
-			filename: '../../WEB-INF/templates/web/es6/button.html'
-		})
-	]
+	}
 }
