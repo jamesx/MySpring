@@ -1,127 +1,186 @@
-const gulp = require('gulp');
-const sass = require('gulp-sass');
-const concat=require('gulp-concat');
-const cleanCss=require('gulp-clean-css');
-const del=require('del');
-const babel = require('gulp-babel');
-const uglify=require('gulp-uglify');
-const rename=require('gulp-rename');
-const imagemin=require('gulp-imagemin');
-const webpack = require('gulp-webpack');
-const fs = require('fs');
-const path = require('path');
-const merge = require('merge-stream');
-const named=require('vinyl-named');
-const build='static/build/js/react/main/'
-const src='static/src/js/react/main/';
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-function getFolders(dir) {
-    return fs.readdirSync(dir)
-        .filter(function(file) {
-            return fs.statSync(path.join(dir, file)).isDirectory();
-        });
+/**
+ * [gulp description]
+ * @type {[type]}
+ */
+var gulp = require("gulp");
+var gutil = require("gulp-util");
+var del = require("del");
+var rename = require('gulp-rename');
+var sass = require('gulp-sass');
+var autoprefixer = require('gulp-autoprefixer');
+var cached = require('gulp-cached');
+var remember = require('gulp-remember');
+
+var webpack = require("webpack");
+var webpackConfig = require("./webpack.config.js");
+
+/**
+ * ----------------------------------------------------
+ * source configuration
+ * ----------------------------------------------------
+ */
+
+var src = {
+    html: "WEB-INF/templates/web/home/*.html",                          // html 文件
+    common: ["static/common/**/*"], // Common 目录和 bower_components
+    style: "static/src/style/*/index.sass",                  // style 目录下所有 xx/index.less
+    assets: "static/assets/**/*"                             // 图片等应用资源
+};
+
+var dist = {
+    root: "static/dist/",
+    html: "WEB-INF/templates/web/home/*.html",
+    style: "static/dist/style",
+    common: "static/dist/common",
+    assets: "static/dist/assets"
+};
+
+var bin = {
+    root: "static/bin/",
+    html: "static/bin/",
+    style: "static/bin/style",
+    common: "static/bin/common",
+    assets: "static/bin/assets"
+};
+
+/**
+ * ----------------------------------------------------
+ *  tasks
+ * ----------------------------------------------------
+ */
+
+/**
+ * clean build dir
+ */
+function clean(done) {
+    del.sync(dist.root);
+    done();
 }
-gulp.task('scripts', function() {
-    var folders = getFolders(src);
 
-    var tasks = folders.map(function(folder) {
-        // 拼接成 foldername.js
-        // 写入输出
-        // 压缩
-        // 重命名为 folder.min.js
-        // 再一次写入输出
-        return gulp.src(path.join(src, folder, '/*.js'))
-            .pipe(named())
-            .pipe(webpack({
-                output:{
-                    path:__dirname+"/static/build/",
-                    filename:"[name].min.js",
-                },
-                module:{
-                    loaders:[
-                        {
-                            test:/\.css$/,
-                            loader:'style-loader!css-loader'
-                        },
-                        {
-                            test: /\.scss|.sass$/,
-                            loader: "style-loader!css-loader!sass-loader" // creates style nodes from JS strings
+/**
+ * [cleanBin description]
+ * @return {[type]} [description]
+ */
+function cleanBin(done) {
+    del.sync(bin.root);
+    done();
+}
 
-                        },
-                        {
-                            test:/\.js|.jsx$/,
-                            exclude:/node-modules/,
-                            loader:'babel-loader',
-                            query:{
-                                presets:['es2015','react']
-                            }
-                        },
-                        {
-                            test:/\.png|.jpg|.jpeg$/,
-                            loader:'file-loader?limit=5000&name=img/[hash:8].[name].[ext]',
-                        }
-                    ]
-                }
-            }))
-             .pipe(uglify())
-            .pipe(rename(folder + '.min.js'))
-            .pipe(gulp.dest(build+'/'+folder+'/'));
-    });
+/**
+ * [copyCommon description]
+ * @return {[type]} [description]
+ */
+function copyCommon() {
+    return gulp.src(src.common)
+        .pipe(gulp.dest(dist.common));
+}
 
-    return merge(tasks);
-});
-// gulp.task('sass',function(){
-//     console.log('sass');
-//     gulp.src(src+'sass/**/*.sass')
-//         .pipe(sass())
-//         .pipe(gulp.dest(src+'css'));
-// });
-// gulp.task('concat',['sass'],function(){
-//     console.log('concat');
-//     gulp.src(src+'css/**/*.css')
-//          .pipe(concat('index.min.css'))
-//         .pipe(cleanCss())
-//         .pipe(gulp.dest(build+'css'))
-// })
-// gulp.task('del',function(){
-//     del([
-//         src+ 'css/bg.css'
-//     ]);
-// })
-gulp.task('js',function(){
-    gulp.src(src+'js/react/main/**/*.js')
-        .pipe(named())
-        .pipe(webpack({
-            output: {
-                filename: '[name].min.js',
-            },
-            watch: false,
-            module: {
-                loaders: [
-                    {
-                        test:/\.js$/,
-                        exclude:/node-modules/,
-                        loader:'babel-loader',
-                        query:{
-                            presets:['es2015','react','stage-0']
-                        }
-                    },
-                ],
-            },
+/**
+ * [copyAssets description]
+ * @return {[type]} [description]
+ */
+function copyAssets() {
+    return gulp.src(src.assets)
+        .pipe(gulp.dest(dist.assets));
+}
+
+/**
+ * [copyDist description]
+ * @return {[type]} [description]
+ */
+function copyDist() {
+    return gulp.src(dist.root + '**/*')
+        .pipe(gulp.dest(bin.root));
+}
+
+
+/**
+ * [style description]
+ * @param  {Function} done [description]
+ * @return {[type]}        [description]
+ */
+function style() {
+    return gulp.src(src.style)
+        .pipe(cached('style'))
+        .pipe(sass())
+        .on('error', handleError)
+        .pipe(autoprefixer({
+            browsers: ['last 3 version']
         }))
-        // .pipe(concat('list.js'))
-       .pipe(uglify())
-       // .pipe(rename('index.min.js'))
-        .pipe(gulp.dest(build+'js/react/main'));
-});
-gulp.task('img',function(){
-    gulp.src(build+'img/*.*')
-        .pipe(imagemin())
-        .pipe(gulp.dest(build+'img/'));
-})
-gulp.task('default',['js','img'],function(){
-    // gulp.watch(src+'css/*.css',['concat']);
-    // gulp.watch(src+'sass/*.sass',['concat']);
-    // gulp.watch(src+'js/react/*/*.js',['js']);
-    // gulp.watch(src+'img/*.*',['img']);
-});
+        .pipe(gulp.dest(dist.style))
+}
+
+exports.style = style;
+
+/**
+ * [webpackProduction description]
+ * @param  {Function} done [description]
+ * @return {[type]}        [description]
+ */
+function webpackProduction(done) {
+    var config = Object.create(webpackConfig);
+    config.plugins = config.plugins.concat(
+        new webpack.DefinePlugin({
+            "process.env": {
+                "NODE_ENV": "production"
+            }
+        }),
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.UglifyJsPlugin()
+    );
+
+    webpack(config, function(err, stats) {
+        if(err) throw new gutil.PluginError("webpack:build", err);
+        gutil.log("[webpack:production]", stats.toString({
+            colors: true
+        }));
+        done();
+    });
+}
+
+
+/**
+ * [webpackDevelopment description]
+ * @param  {Function} done [description]
+ * @return {[type]}        [description]
+ */
+var devConfig, devCompiler;
+
+devConfig = Object.create(webpackConfig);
+devCompiler = webpack(devConfig);
+
+function webpackDevelopment(done) {
+    devCompiler.run(function(err, stats) {
+        if (err) {
+            throw new gutil.PluginError("webpack:build-dev", err);
+            return;
+        }
+        gutil.log("[webpack:build-dev]", stats.toString({
+            colors: true
+        }));
+        done();
+    });
+}
+/**
+ * default task
+ */
+gulp.task("default", gulp.series(
+    clean,
+    gulp.parallel(copyAssets, copyCommon, html, style, webpackDevelopment)
+));
+
+
+
+/**
+ * [handleError description]
+ * @param  {[type]} err [description]
+ * @return {[type]}     [description]
+ */
+function handleError(err) {
+    if (err.message) {
+        console.log(err.message)
+    } else {
+        console.log(err)
+    }
+    this.emit('end')
+}
