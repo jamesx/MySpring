@@ -24,7 +24,7 @@ var webpackConfig = require("./webpack.config.js");
 var src = {
     html: "WEB-INF/templates/web/home/*/index.html",                          // html 文件
     common: ["static/common/**/*"], // Common 目录和 bower_components
-    style: "static/src/style/*/*.sass",                  // style 目录下所有 xx/index.less
+    style: "static/src/style/*/*.scss",                  // style 目录下所有 xx/index.less
     assets: "static/assets/**/*"                             // 图片等应用资源
 };
 

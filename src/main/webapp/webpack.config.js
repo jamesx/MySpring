@@ -16,7 +16,7 @@ var config = {
                 loader:'style-loader!css-loader'
             },
             {
-                test: /\.scss|.sass$/,
+                test: /\.scss$/,
                 loader: "style-loader!css-loader!sass-loader" // creates style nodes from JS strings
 
             },
