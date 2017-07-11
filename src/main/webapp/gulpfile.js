@@ -7,6 +7,7 @@ var gutil = require("gulp-util");
 var del = require("del");
 var rename = require('gulp-rename');
 var sass = require('gulp-sass');
+var cleanCss=require('gulp-clean-css');
 var autoprefixer = require('gulp-autoprefixer');
 var cached = require('gulp-cached');
 var remember = require('gulp-remember');
@@ -21,28 +22,17 @@ var webpackConfig = require("./webpack.config.js");
  */
 
 var src = {
-    html: "WEB-INF/templates/web/home/*.html",                          // html 文件
+    html: "WEB-INF/templates/web/home/*/index.html",                          // html 文件
     common: ["static/common/**/*"], // Common 目录和 bower_components
-    style: "static/src/style/*/index.sass",                  // style 目录下所有 xx/index.less
+    style: "static/src/style/*/*.sass",                  // style 目录下所有 xx/index.less
     assets: "static/assets/**/*"                             // 图片等应用资源
 };
 
 var dist = {
+    html: "WEB-INF/templates/web/home/*/index.html",
     root: "static/dist/",
-    html: "WEB-INF/templates/web/home/*.html",
     style: "static/dist/style",
-    common: "static/dist/common",
-    assets: "static/dist/assets"
 };
-
-var bin = {
-    root: "static/bin/",
-    html: "static/bin/",
-    style: "static/bin/style",
-    common: "static/bin/common",
-    assets: "static/bin/assets"
-};
-
 /**
  * ----------------------------------------------------
  *  tasks
@@ -56,44 +46,6 @@ function clean(done) {
     del.sync(dist.root);
     done();
 }
-
-/**
- * [cleanBin description]
- * @return {[type]} [description]
- */
-function cleanBin(done) {
-    del.sync(bin.root);
-    done();
-}
-
-/**
- * [copyCommon description]
- * @return {[type]} [description]
- */
-function copyCommon() {
-    return gulp.src(src.common)
-        .pipe(gulp.dest(dist.common));
-}
-
-/**
- * [copyAssets description]
- * @return {[type]} [description]
- */
-function copyAssets() {
-    return gulp.src(src.assets)
-        .pipe(gulp.dest(dist.assets));
-}
-
-/**
- * [copyDist description]
- * @return {[type]} [description]
- */
-function copyDist() {
-    return gulp.src(dist.root + '**/*')
-        .pipe(gulp.dest(bin.root));
-}
-
-
 /**
  * [style description]
  * @param  {Function} done [description]
@@ -107,6 +59,7 @@ function style() {
         .pipe(autoprefixer({
             browsers: ['last 3 version']
         }))
+        .pipe(cleanCss())
         .pipe(gulp.dest(dist.style))
 }
 
@@ -166,11 +119,8 @@ function webpackDevelopment(done) {
  */
 gulp.task("default", gulp.series(
     clean,
-    gulp.parallel(copyAssets, copyCommon, html, style, webpackDevelopment)
+    gulp.parallel(style, webpackDevelopment)
 ));
-
-
-
 /**
  * [handleError description]
  * @param  {[type]} err [description]
