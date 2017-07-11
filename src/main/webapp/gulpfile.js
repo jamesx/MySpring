@@ -64,34 +64,6 @@ function style() {
 }
 
 exports.style = style;
-
-/**
- * [webpackProduction description]
- * @param  {Function} done [description]
- * @return {[type]}        [description]
- */
-function webpackProduction(done) {
-    var config = Object.create(webpackConfig);
-    config.plugins = config.plugins.concat(
-        new webpack.DefinePlugin({
-            "process.env": {
-                "NODE_ENV": "production"
-            }
-        }),
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin()
-    );
-
-    webpack(config, function(err, stats) {
-        if(err) throw new gutil.PluginError("webpack:build", err);
-        gutil.log("[webpack:production]", stats.toString({
-            colors: true
-        }));
-        done();
-    });
-}
-
-
 /**
  * [webpackDevelopment description]
  * @param  {Function} done [description]
