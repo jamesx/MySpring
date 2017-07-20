@@ -30,11 +30,11 @@ var config = {
         }],
     },
     plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        }),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         warnings: false
+        //     }
+        // }),
         new webpack.optimize.CommonsChunkPlugin({name:'common', filename:'../../common/base.js'}),
     ],
 };
